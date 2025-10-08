@@ -33,6 +33,7 @@ pipeline{
         }
 
         stage('Deploy to Test'){
+            when {branch "deployment"}
             steps{
                 sh """
                     oc set image deployment home-automation \
