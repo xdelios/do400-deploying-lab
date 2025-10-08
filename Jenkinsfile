@@ -4,7 +4,7 @@ pipeline{
             label 'maven'
         }
     }
-
+    environment { QUAY = credentials('QUAY_USER') }
     stages{
         stage('Test'){
             steps{
@@ -13,7 +13,7 @@ pipeline{
         }
 
         stage('Build and push'){
-            environment { QUAY = credentials('QUAY_USER') }
+            
             steps{
                 sh ' ./mvnw quarkus:add-extension -Dextensions="container-image-jib"'
                 sh '''
