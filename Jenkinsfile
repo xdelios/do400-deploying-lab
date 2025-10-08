@@ -41,6 +41,17 @@ pipeline{
                 """
             }
         }
+
+        stage('Deploy to Prod'){
+            when {branch "main"}
+            steps{
+                sh """
+                    oc set image deployment home-automation \
+                    home-automation=quay.io/${QUAY_USR}/do400-deploying-lab:build-${BUILD_NUBMER} \
+                    -n rplvvx-deploying-lab-prod --record
+                """
+            }
+        }
     }
 
 
